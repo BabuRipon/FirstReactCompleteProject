@@ -31,3 +31,9 @@ address{
 .navbar-dark {
     background-color: #512DA8;
 }
+
+
+.nav-link{
+    display: inline-block;
+    white-space: nowrap;
+}
