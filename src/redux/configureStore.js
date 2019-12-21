@@ -11,7 +11,8 @@ export const configureStore=()=>{
            promotions:Promotions,
            comments:Comments,
            leaders:Leaders,
-       })
+       }),
+     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
    )
 
    return store;
