@@ -2,6 +2,7 @@ import React,{Component}from 'react';
 import {Card,CardBody,CardText,CardTitle,CardImg,BreadcrumbItem,Breadcrumb,Button,Modal,ModalBody,ModalHeader,Row,Col} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Control,Errors,LocalForm}from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 
 function RenderDish({dish}){
      return(
@@ -15,6 +16,7 @@ function RenderDish({dish}){
            </Card>
         </div>
      ) 
+   
 }
 
 const required=(val)=>(val)&&val.length;
@@ -127,39 +129,65 @@ function RenderComment({comments,addComment,dishId}){
            </React.Fragment>
         )
      })
-     return(
-        <div className="col-12 col-md-5 m-1">
-            <h3>comments</h3>
-            {comment}
-            <FormComment dishId={dishId} addComment={addComment}/>
-        </div>
-     )
+     
+     
+         return(
+            <div className="col-12 col-md-5 m-1">
+                  <h3>comments</h3>
+                  {comment}
+                  <FormComment dishId={dishId} addComment={addComment}/>
+            </div>
+         )
+   
 }
 
 class DishDetail extends Component{
+   
    render(){
-      return(
-          <div className="container">
-             <div className="row">
-                 <Breadcrumb>
-                   <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                   <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
-                 </Breadcrumb>
-                 <div className="col-12">
-                     <h3>{this.props.dish.name}</h3>
-                     <hr />
+      if (this.props.isLoading) {
+         return(
+             <div className="container">
+                 <div className="row">            
+                     <Loading />
                  </div>
              </div>
-              <div className="row">
-                   <RenderDish dish={this.props.dish}/>
-                   <RenderComment comments={this.props.comments} 
-                    addComment={this.props.addComment}
-                    dishId={this.props.dish.id}
-                   />
-              </div>
-          </div>
-      )
+         );
+     }
+     else if (this.props.errMess) {
+         return(
+             <div className="container">
+                 <div className="row"> 
+                     <div className="col-12">
+                         <h4>{this.props.errMess}</h4>
+                     </div>
+                 </div>
+             </div>
+         );
+     }
+      else{
+            return(
+               <div className="container">
+                  <div className="row">
+                     <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                     </Breadcrumb>
+                     <div className="col-12">
+                           <h3>{this.props.dish.name}</h3>
+                           <hr />
+                     </div>
+                  </div>
+                  <div className="row">
+                        <RenderDish dish={this.props.dish}  />
+                        <RenderComment comments={this.props.comments} 
+                        addComment={this.props.addComment}
+                        dishId={this.props.dish.id}
+                        />
+                  </div>
+               </div>
+            )
    }
+ }
 }
 
 export default DishDetail;
