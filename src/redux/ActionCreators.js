@@ -20,8 +20,21 @@ export const fetchDishes=()=>(dispatch)=>{
     //     dispatch(addDishes(DISHES));
     // },2000);
     return fetch(baseUrl+'dishes')
+           .then(res=>{
+               if(res.ok){
+                   return res;
+               }else{
+                   var err=new Error("Error"+res.status+":"+res.statusText);
+                   err.res=err;
+                   throw err;
+               }
+           },
+          err=>{var errmess=new Error(err.message);
+                throw errmess;    
+             } )
            .then(response=>response.json())
            .then(dishes=>dispatch(addDishes(dishes)))
+           .catch(err=>dispatch(dishesFailed(err.message)))
 }
 
 export const dishesLoading=()=>({
@@ -42,8 +55,21 @@ export const fetchPromos=()=>(dispatch)=>{
     dispatch(promosLoading());
 
     return fetch(baseUrl+"promotions")
+        .then(res=>{
+            if(res.ok){
+                return res;
+            }else{
+                var err=new Error("Error"+res.status+":"+res.statusText);
+                err.res=err;
+                throw err;
+            }
+        },
+        err=>{var errmess=new Error(err.message);
+            throw errmess;    
+        } )
          .then(response=>response.json())
          .then(promos=>dispatch(addPromos(promos)))
+         .catch(err=>dispatch(promosFailed(err.message)))
 }
 
 export const promosLoading=()=>({
@@ -62,8 +88,21 @@ export const addPromos=(promos)=>({
 
 export const fetchComments=()=>(dispatch)=>{
     return fetch(baseUrl+"comments")
+            .then(res=>{
+                if(res.ok){
+                    return res;
+                }else{
+                    var err=new Error("Error"+res.status+":"+res.statusText);
+                    err.res=err;
+                    throw err;
+                }
+            },
+            err=>{var errmess=new Error(err.message);
+                throw errmess;    
+            } )
         .then(res=>res.json())
         .then(comments=>dispatch(addComments(comments)))
+        .catch(err=>dispatch(commentsFailed(err.message)))
 }
 
 export const commentsFailed=(errmess)=>({
