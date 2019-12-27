@@ -42,7 +42,7 @@ class FormComment extends Component{
    handleSubmit(values){
       this.toggleModal();
       alert("your details is : "+JSON.stringify(values));
-      this.props.addComment(this.props.dishId,values.ratings,values.name,values.message);
+      this.props.postComment(this.props.dishId,values.ratings,values.name,values.message);
    }
 
    render(){
@@ -119,7 +119,7 @@ class FormComment extends Component{
    }
 }
 
-function RenderComment({comments,addComment,dishId}){
+function RenderComment({comments,postComment,dishId}){
      const comment=comments.map((comment)=>{
         return(
            <React.Fragment>
@@ -136,7 +136,7 @@ function RenderComment({comments,addComment,dishId}){
             <div className="col-12 col-md-5 m-1">
                   <h3>comments</h3>
                   {comment}
-                  <FormComment dishId={dishId} addComment={addComment}/>
+                  <FormComment dishId={dishId} postComment={postComment}/>
             </div>
          )
    
@@ -181,7 +181,7 @@ class DishDetail extends Component{
                   <div className="row">
                         <RenderDish dish={this.props.dish}  />
                         <RenderComment comments={this.props.comments} 
-                        addComment={this.props.addComment}
+                        postComment={this.props.postComment}
                         dishId={this.props.dish.id}
                         />
                   </div>
