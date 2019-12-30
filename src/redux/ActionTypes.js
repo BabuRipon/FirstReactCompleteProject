@@ -1,4 +1,6 @@
 export const ADD_COMMENT='Add_Comment';
+export const ADD_FEEDBACK='ADD_FEEDBACK';
+
 export const DISHES_LOADING='DISHES_LOADING';
 export const DISHES_FAILED='DISHES_FAILED';
 export const ADD_DISHES="ADD_DISHES";
@@ -9,3 +11,7 @@ export const COMMENTS_FAILED=" COMMENTS_FAILED";
 export const PROMOS_LOADING="PROMOS_LOADING";
 export const PROMOS_FAILED="PROMOS_FAILED";
 export const ADD_PROMOS="ADD_PROMOS";
+
+export const ADD_LEADER="ADD_LEADER";
+export const LEADER_FAILED="LEADER_FAILED";
+export const LEADER_LOADING="LEADER_LOADING";

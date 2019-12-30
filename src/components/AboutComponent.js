@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import {Loading} from './LoadingComponent';
 
 
 function RenderLeader({leader}){
@@ -13,7 +15,7 @@ function RenderLeader({leader}){
                 <React.Fragment>
                         <Media>
                             <Media left middle>
-                               <Media object src={leader.image} alt={leader.name} /> 
+                               <Media object src={baseUrl+leader.image} alt={leader.name} /> 
                             </Media>
                         <Media body className="ml-3">
                         <Media heading>
@@ -50,12 +52,32 @@ function RenderLeader({leader}){
 
     render(){
         console.log(this.state.LeaderId);
-        const leaders = this.props.leaders.map((leader) => {
+        const leaders = this.props.leaders.leaders.map((leader) => {
             return (
                 <p onClick={()=>this.getLeader(leader.id)}>Leader {leader.name}</p>
             );
         });
-    
+        if (this.props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (this.props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row"> 
+                        <div className="col-12">
+                            <h4>{this.props.errMess}</h4>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    else{   
         return(
             <div className="container">
                 <div className="row">
@@ -116,11 +138,12 @@ function RenderLeader({leader}){
                         </Media>
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                       <RenderLeader leader={this.props.leaders.filter((leader)=>leader.id===this.state.LeaderId)[0]}/>
+                       <RenderLeader leader={this.props.leaders.leaders.filter((leader)=>leader.id===this.state.LeaderId)[0]}/>
                     </div>
                 </div>
             </div>
         );
+      }
     }
 }
 

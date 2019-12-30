@@ -15,7 +15,8 @@ class Contact extends Component{
 
    constructor(props){
       super(props);
-      this.handleSubmit=this.handleSubmit.bind(this);      
+      this.handleSubmit=this.handleSubmit.bind(this); 
+
    }
 
   
@@ -23,6 +24,7 @@ class Contact extends Component{
   handleSubmit(value){
     console.log('Current State is: ' + JSON.stringify(value));
     alert('Current State is: '+JSON.stringify(value));
+    this.props.postFeedback(value.firstname,value.lastname,value.telnum,value.email,value.agree,value.contactType,value.message);
     console.log("hi");
     this.props.resetFeedbackForm();
   }
